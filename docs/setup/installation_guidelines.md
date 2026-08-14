@@ -2,7 +2,6 @@
 title: "Installation guidelines"
 ---
 
-# Installation guidelines
 This section will guide you towards making a safer installation of the battery. Please start by familiarizing yourself with your local regulations regarding solar inverters and stationary storage requirements. Make sure the inverter selection is approved by your grid operator before ordering parts. Finally, make sure the person installing the hardware has a valid electrical safety & installation training.
 
 !!! warning "CAUTION"
@@ -156,9 +155,9 @@ The battery case **needs** to be connected to protective earth (PE). This is req
 !!! warning "CAUTION"
     **Failure to connect battery case to protective earth can lead to dangerous situations where high voltage leaks are not detected**
 
-Example, Nissan LEAF battery case connected to PE
+Example, Nissan LEAF battery case and all other metallic parts connected to PE:
 
-![image](../../images/installation-guidelines-09.png)
+<img width="1600" height="1200" alt="kép" src="https://github.com/user-attachments/assets/2bc285a2-1d1b-4e95-8b1c-cc25dbd5c602" />
 
 ### Loss of isolation :zap: 
 If either HV+ or HV- touches protective earth while the system is running, the solar inverter will detect this and throw an loss of isolation / insulation resistance too low error message, and stop operation. Troubleshooting this can be tricky, and requires extreme caution since high voltage can be present in protective earth.
@@ -178,7 +177,7 @@ Start by checking the easy stuff, measure if HV wiring is leaking to PE. If the 
 
 [Resistor kit](https://vi.aliexpress.com/item/1005006699173023.html)
 
-# Periodic maintenance :wrench: 
+## Periodic maintenance :wrench: 
 While EV batteries are designed to be low-maintenance, periodic checks are crucial for ensuring long-term reliability, maximizing performance, and guaranteeing safety. A proactive maintenance schedule can prevent costly failures and identify potential issues before they become serious hazards.
 
 The information below is general guidance.
@@ -186,12 +185,12 @@ The information below is general guidance.
 !!! warning "CAUTION"
     De-energize and isolate the system from all power sources (AC and DC) before performing any physical maintenance, and only qualified personnel should perform these tasks.
 
-## Software update :cd: 
+### Software update :cd: 
 Perform periodic [over the air software updates](../software/ota_update.md) to the Battery-Emulator board. Pay extra attention to the [release notes](https://github.com/dalathegreat/Battery-Emulator/releases), and if you see an improvement concerning the components you are using, update the system. If you see changes concerning Safety, also update the system right away.
 
 - Frequency: Check every 2-3 months if updates are available
 
-## Terminal tightness :nut_and_bolt: 
+### Terminal tightness :nut_and_bolt: 
 Electrical connections can loosen over time due to thermal cycling (expansion and contraction from heating and cooling during charge/discharge cycles). This is especially noticeable on high power DC systems. A loose connection increases electrical resistance, leading to localized heating, potential fire hazards, and voltage drops that reduce system efficiency.
 
 - **Why it's Important:** Loose terminals are a leading cause of electrical failures. They can cause arcing, melting, and in severe cases, fires.
@@ -208,7 +207,7 @@ Electrical connections can loosen over time due to thermal cycling (expansion an
 
 Example of terminal with torque values printed on it
 
-## Coolant (for Liquid-Cooled Systems) :sweat_drops:
+### Coolant (for Liquid-Cooled Systems) :sweat_drops:
 
 Liquid cooling is used in some EV batteries to manage battery temperature. Maintaining the coolant is vital for thermal management and preventing corrosion.
 
@@ -221,7 +220,7 @@ Liquid cooling is used in some EV batteries to manage battery temperature. Maint
    - Frequency: Typically every 3 to 7 years, but follow the manufacturer's strict interval.
    - Procedure: This is often a very installation specific task. It involves draining the old coolant, flushing the system, and refilling with new, premixed coolant while ensuring all air is bled from the lines to prevent airlocks.
 
-## State of Health (SOH) and efficiency :battery:
+### State of Health (SOH) and efficiency :battery:
 EV batteries provide valuable data that is part of a digital maintenance routine.
 
 - Why it's Important: Tracking SOH and cell balance helps predict system lifespan and identify abnormal performance drops that may indicate a failing cell or module.
@@ -231,7 +230,7 @@ EV batteries provide valuable data that is part of a digital maintenance routine
       - State of Health (SOH): The battery's capacity relative to its original state.
       - Cell balance: The better a battery is balanced, the more energy you can safely extract from it. Keep a track of the deviation in mV, by visiting the Cellmonitor page.
 
-## Visual Inspection :eyes: 
+### Visual Inspection :eyes: 
 A simple visual check can reveal many early warning signs.
 
 - Frequency: Monthly.
