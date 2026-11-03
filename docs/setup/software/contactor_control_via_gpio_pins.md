@@ -77,7 +77,7 @@ This schematic shows a wiring example with LilyGo T‐CAN485:
 
 ## Troubleshooting
 
-Before the contactors turn on, both Inverter and Battery needs to give OK ✅ signal. This can be verified via the Webinterface. In this screenshot, battery is preventing startup:
+Before the contactors turn on, both Inverter and Battery needs to give OK ✅ signal. This can be verified via the Webinterface. 
 
 - Emulator allows contactor closing: ✓
 - Inverter allows contactor closing: ✓
@@ -90,7 +90,9 @@ In a [double](battery_2x.md) or [triple](battery_3x.md) battery setup, their con
 !!! warning "WARNING"
     In case the whole Emulator goes into Fault state, the contactors will open, and latch. To get them to close again, you need to restart the entire Battery-Emulator (after having analysed the fault)
 
-You can check the Event view in the webserver, to see if any critical Error has been encountered.
+You can check the Event view in the webserver, to see if any critical Error has been encountered. In this screenshot, battery is preventing startup:
+
+<img width="627" height="473" alt="fail" src="https://github.com/user-attachments/assets/20dfa4cd-228d-4b6f-ac14-d21981a4f81c" />
 
 !!! tip "TIP"
     If you observe *after a longer time* that the contactors open by themselves, increase the **PWM Hold** value relatively to **PWM Frequency Hz**, to ensure that they remain held steadily.
