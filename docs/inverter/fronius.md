@@ -6,9 +6,9 @@ title: "Fronius"
 
 The code works with the following Fronius inverters:
 
-* Fronius Primo Gen24 Plus (all sizes) ✅
-* Fronius Symo Gen24 Plus (all sizes) ✅
-* Fronius Symo Gen24 Plus SC 12.0 ✅
+* Fronius Primo GEN24 Plus (all sizes) ✅
+* Fronius Symo GEN24 Plus (all sizes) ✅
+* Fronius Symo GEN24 Plus SC 12.0 ✅
 * Fronius Symo Hybrid 3.0/4.0/5.0-3-S ✅ (ℹ️ Legacy, no longer available)
 * Fronius Verto Plus (all sizes) ✅
 
@@ -37,7 +37,7 @@ This means that if you have a high voltage battery (450V), you will see much hig
 Keep this amperage limit in mind when choosing a battery for the Fronius!
 
 !!! note "Software limits :floppy_disk:"
-    There is a non-Plus variant of Gen24 available, for this you have to purchase a battery license before you can add a battery to the configuration. In **System > Information > License** you should see something like below. Contact your installer incase "Battery Operation" feature is missing!
+    There is a non-Plus variant of GEN24 available, for this you have to purchase a battery license before you can add a battery to the configuration. In **System > Information > License** you should see something like below. Contact your installer incase "Battery Operation" feature is missing!
 
     ![activefeats](../images/fronius-01.png)
 
@@ -156,7 +156,7 @@ Battery Emulator reports these events to the inverter, with the codes it has for
 | `BYD2-48` | Pre-charge Fault - Fault2 | Precharging takes too long | PRECHARGE_FAILURE (info), AUTOMATIC_PRECHARGE_FAILURE (error), CONTACTOR_WATCHDOG_FAILED (warning) |
 | `BYD2-49` | DCBusFault | Faulty wiring of the battery supply line | INTERNAL_OPEN_FAULT (error), HVIL_FAILURE (error), BATTERY_ISOLATION (warning) |
 
-Errors go to the inverter as a Fault2, warnings and info events as a Fault1. Where an event also exists for a 2nd or 3rd battery, those are reported with the same code, except CAN_BATTERY_MISSING. No other event is reported.
+Errors go to the inverter as a `Fault2`, warnings and info events as a `Fault1`. Where an event also exists for a 2nd or 3rd battery, those are reported with the same code, except CAN_BATTERY_MISSING. No other event is reported.
 
 Each fault is reported once, dated by [Battery Emulator's clock](#battery-emulators-clock), which follows the inverter's. After a power cycle that clock waits for the inverter's next time, which can take up to an hour. Faults that occur before then are held, and show up in the inverter's event log as soon as the time arrives, dated when they occurred. Battery Emulator holds the last 10 faults this way.
 
@@ -219,42 +219,42 @@ A quick solution is to enable the "450V maxvoltage cap" setting. This fakes it s
 
 ## Off-Grid/Backup Configuration
 
-Symo/Primo Gen24 inverters that are smaller than 6.0kW are **not** compatible with running full backup mode (the Primo 5.0 is). On these smaller inverters, your best bet is to utilize the PVpoint outlet to get power out of the battery.
+Symo/Primo GEN24 inverters that are smaller than 6.0kW are **not** compatible with running full backup mode (the Primo 5.0 is). On these smaller inverters, your best bet is to utilize the PVpoint outlet to get power out of the battery.
 
-A Smart-Meter is mandatory for battery use when connected to a grid (or generator). However, the Gen24 can run 'Off-Grid' if configured specifically for this scenario and limitations. 
+A Smart-Meter is mandatory for battery use when connected to a grid (or generator). However, the GEN24 can run 'Off-Grid' if configured specifically for this scenario and limitations. 
 
-To run the Gen24 as off-grid but have the facility to connect to a grid (or generator) at some point, then you must follow the Full-Backup configuration design as documented by Fronius. 
+To run the GEN24 as off-grid but have the facility to connect to a grid (or generator) at some point, then you must follow the Full-Backup configuration design as documented by Fronius. 
 
-If you intend to never connect the inverter to a grid source (or generator), then you can hard wire the Gen24 in Full-Backup mode. In both cases, the smart-meter **MUST NOT** be detected when running in Full-Backup mode. 
+If you intend to never connect the inverter to a grid source (or generator), then you can hard wire the GEN24 in Full-Backup mode. In both cases, the smart-meter **MUST NOT** be detected when running in Full-Backup mode. 
 
-If needed for a future grid or generator power source, the smart-meter can be wired in as per normal ready for a grid or generator input, but the modbus comms (D+) must be disconnected to ensure it does not send data to the Gen24. If the gen24 detects a smart-meter when running in full-backup, then it assumes the grid is connected and will shutdown the inverter and not work reliably.  
+If needed for a future grid or generator power source, the smart-meter can be wired in as per normal ready for a grid or generator input, but the modbus comms (D+) must be disconnected to ensure it does not send data to the GEN24. If the gen24 detects a smart-meter when running in full-backup, then it assumes the grid is connected and will shutdown the inverter and not work reliably.  
 
-To hard wire the Gen24 as off-grid and 'cold-start' using the EV battery pack or PV, I/O pins 6 and 7 need to be jumpered to the V+ on the I/O connector as shown below. 
+To hard wire the GEN24 as off-grid and 'cold-start' using the EV battery pack or PV, I/O pins `6` and `7` need to be jumpered to the `V+` on the I/O connector as shown below: 
 
 ![Screenshot 2026-05-12 at 12 19 41 pm](../images/fronius-15.png){ width="403" height="478" }
 
-Additionally, Full-Backup mode needs to be configured on the Gen24 as follows:
+Additionally, Full-Backup mode needs to be configured on the GEN24 as follows:
 
 ![image](../images/fronius-16.png){ width="610" height="671" }
 
-Pin0 is not used when hard wiring for full backup. Pin0 is used for automatic switchover to full-backup int the event of a grid failure. Follow the Fronius documentation for this type of configuration. 
+`Pin0` is not used when hard wiring for full backup. Pin0 is used for automatic switchover to full-backup int the event of a grid failure. Follow the Fronius documentation for this type of configuration. 
 
-The Fronius Gen24 configuration documents describe both automatic and manual switch-over to backup mode using combination of switches and/or relays. Both options can be commercially sourced if you need a non hard-wired off-grid only solution. 
+The Fronius GEN24 configuration documents describe both automatic and manual switch-over to backup mode using combination of switches and/or relays. Both options can be commercially sourced if you need a non hard-wired off-grid only solution. 
 
 !!! note "NOTE"
-    When running as Full-Backup, the inverter will run by default at 53Hz. As such, no other inverter can be active on the AC circuit. Only the Gen24 can be providing power! If you need additional power, then a true Micro-Grid should be used (AC coupling with Victron etc).
+    When running as Full-Backup, the inverter will run by default at 53Hz. As such, no other inverter can be active on the AC circuit. Only the GEN24 can be providing power! If you need additional power, then a true Micro-Grid should be used (AC coupling with Victron etc).
 
 !!! warning "IMPORTANT"
-    Fronius officially supports a maximum of 2000h off-grid (full-backup) per year on the Gen24. Exceeding this hour count voids the warranty. There are no reports of any inverters shutting down after 2000hours. 
+    Fronius officially supports a maximum of 2000h off-grid (full-backup) per year on the GEN24. Exceeding this hour count voids the warranty. There are no reports of any inverters shutting down after 2000hours. 
 
-    To get around this off-grid limitation, you can create a microgrid using a 48V battery that powers a small inverter, and then connect the Gen24 to this microgrid. Then it will be essentially offgrid, without incrementing the 2000h max counter. Example of this running successfully has been done with a Victron a 7.2kwh(LV) , and FroniusGen24 with a 75Kwh battery(HV). A smart meter is required if running as a true micro-grid.
+    To get around this off-grid limitation, you can create a microgrid using a 48V battery that powers a small inverter, and then connect the GEN24 to this microgrid. Then it will be essentially offgrid, without incrementing the 2000h max counter. Example of this running successfully has been done with a Victron a 7.2kwh(LV) , and FroniusGEN24 with a 75Kwh battery(HV). A smart meter is required if running as a true micro-grid.
 
 All normal earthing requirements when running in 'off-grid' must still be followed. Consult a qualified electrician for advice. 
 
 ## Advanced control of energy (Spot price, scheduled charge/discharge etc.)
-Once you have your battery connected to the Fronius, it is possible to add additional hardware into the mix for advanced control of how energy should flow in the system. This is useful for those with spot-price electricity, or a nightly tariff. Below are some examples you can utilize to control the Fronius Gen24 directly via Modbus TCP.
+Once you have your battery connected to the Fronius, it is possible to add additional hardware into the mix for advanced control of how energy should flow in the system. This is useful for those with spot-price electricity, or a nightly tariff. Below are some examples you can utilize to control the Fronius GEN24 directly via Modbus TCP.
 
-- You can setup forced nightly charging via the webinterface of the Gen24 (Requires connecting to the inverter directly, not available via SolarWeb). This is very useful if you have a cheap night tariff, and want to charge the battery during the night and use the energy during the day
+- You can setup forced nightly charging via the webinterface of the GEN24 (Requires connecting to the inverter directly, not available via SolarWeb). This is very useful if you have a cheap night tariff, and want to charge the battery during the night and use the energy during the day
 - [Arska-node](https://github.com/Netgalleria/arska-node/) reads Nordpool electricity prices (from EntsoE/Elering) and renewal energy forecast (solar from Open Meteo, solar/wind from Finnish FMI) as well as local real-time net power consumption/sales (smart meter HAN P1-port -tested in FI, Shelly 3EM). Based on this and time based data (+ optional ds18b20) the system updates variables ([github/Netgalleria](https://github.com/Netgalleria/arska-node/wiki/Channels#variables)) which are used in channel rules deciding whether the channel should be up/down/charging/discharging. Arska has also basic load management functionality (limits loads if consumption exceeds given limits). So far users have used the system mainly to optimise self-consumption of PV production and for scheduling flexible consumption at the cheapest time and selling any surplus when the price is high. Arska has controlled (through GPIO, Shelly and Tasmota relays) water boilers and (underfloor) heating. According to the developer, version 1.3 controls the Fronius GEN24 charging/discharging parameters (nWRte, OutWRte, StorCtl_Mod) based on given channel rules.
 - Info on how to [control Fronius Modbus via Homeassistant (German)](https://www.libe.net/byd-modbus)
 - [SBAM: Charge Fronius battery using SolCast weather forecast](https://github.com/atbore-phx/sbam/tree/main)
